@@ -1,0 +1,21 @@
+.root {
+  border-color: black;
+  empty-color: #023d34;
+  filled-color: #fa2f55;
+}
+
+/* Cell styling ------------------------------------------------------------- */
+
+.cell-view > Rectangle {
+  -fx-stroke: border-color;
+  -fx-stroke-type: inside;
+  -fx-stroke-width: 0.5;
+}
+
+.cell-view-empty > Rectangle {
+  -fx-fill: empty-color;
+}
+
+.cell-view-filled > Rectangle {
+  -fx-fill: filled-color;
+}
