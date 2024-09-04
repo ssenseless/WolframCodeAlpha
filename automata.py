@@ -4,7 +4,7 @@ def to_bytes_list(num: int) -> list:
 
 class automata:
     def __init__(self, rule: int) -> None:
-        self.rule = dict(zip([i for i in range(7, -1, -1)], to_bytes_list(rule)))
+        self.rule = self.set_rule(rule=rule)
 
     def compute_neighborhood(self, on_color: tuple, off_color: tuple, row: list) -> list:
         color_to_bin = {
@@ -30,6 +30,9 @@ class automata:
             )
 
         return ret_row
+    
+    def set_rule(self, rule: int) -> dict:
+        return dict(zip([i for i in range(7, -1, -1)], to_bytes_list(rule)))
 
 
 if __name__ == "__main__":
