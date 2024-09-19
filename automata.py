@@ -30,7 +30,8 @@ class automata:
             )
 
         return ret_row
-    
+
+
     def set_rule(self, rule: int) -> dict:
         return dict(zip([i for i in range(7, -1, -1)], to_bytes_list(rule)))
 
