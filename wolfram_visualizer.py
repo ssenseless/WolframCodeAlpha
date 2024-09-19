@@ -51,7 +51,7 @@ col_colnum = 501
 col_rownum = 204
 
 root = Tk()
-root.title('k-means image compression')
+root.title('wolfram cellular automata visualizer')
 root.config(bg=back_col)
 root.geometry('1200x450')
 
