@@ -1,11 +1,19 @@
-A GUI to visualize different generalized cellular automata, starting from one center point. 
+## Wolfram Cellular Automata Visualizer v1.0.0-alpha
+> Fairly functional application allowing users to visualize Wolfram's generalized cellular automata, with different starting points and animations.
 
-Thanks, Wolfram. :D
+### Current features
+* Animated visualization of cellular automata
+* Several different starting points presets
 
-![image](https://github.com/ssenseless/WolframCodeAlpha/assets/70653811/edf10732-3892-4987-bb21-eb79955217f3)
+### Upgrade Steps
+* Bad bugs if users change settings while "animation" (just event handling) running
+* Current input is a StringVar per tkinter conventions but need an alternative so that users don't have the ability to type words/numbers higher than 255 (though latter is really only a performance issue)
+* Canvas/image resizing (higher resolution, better detailing on more fractal-y automata)
+* More starting point/image presets
+* User color choice
+* User pixel sizing
+* Automata export functionality
 
-![image](https://github.com/ssenseless/WolframCodeAlpha/assets/70653811/535e67e5-4d3b-40be-b908-feb302ae7f25)
-
-![image](https://github.com/ssenseless/WolframCodeAlpha/assets/70653811/67fe863f-8682-41e5-bdfb-b44b60a31400)
-
-![image](https://github.com/ssenseless/WolframCodeAlpha/assets/70653811/fdb51f88-83a2-4ff3-a630-ec34a449fcbf)
+### Application screenshots
+<img width="896" alt="Screenshot 2024-09-19 130423" src="https://github.com/user-attachments/assets/bc206f59-133f-4029-88c5-a28b7712b98b">
+<img width="898" alt="image" src="https://github.com/user-attachments/assets/56a77498-3e7f-4f7b-a67d-3a3863085243">
