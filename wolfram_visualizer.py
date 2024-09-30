@@ -1,6 +1,10 @@
+import copy
+
+import numpy as np
+import copy as cp
+
 from tkinter import *
 from tkinter.ttk import Combobox
-import numpy as np
 from PIL import Image, ImageTk
 from automata import automata
 
@@ -15,15 +19,44 @@ def change_image(event):
     displaybel.image = display
     displaybel.config(image=display)
 
-def update_row(index, curr_arr):
-    global display
-    if index < (len(curr_arr) - 1):
-        curr_arr[index + 1] = cell.compute_neighborhood(on_color, off_color, curr_arr[index])
+def update_row(curr_arr):
+    new = np.array(cp.deepcopy(empty))
+    for idx in range(len(curr_arr) - 1):
+        curr_arr[idx + 1] = cell.compute_neighborhood(on_color, off_color, curr_arr[idx])
 
-        display = image_from_arr(curr_arr)
+    for i in range(2):
+        new = np.repeat(new, pixel_size, axis=i)
+        curr_arr = np.repeat(curr_arr, pixel_size, axis=i)
+
+    helper = Image.new(mode='RGB', size=(col_colnum * pixel_size, col_rownum * pixel_size))
+    curr_arr = [tuple(tup) for lst in curr_arr.tolist() for tup in lst]
+    new = [tuple(tup) for lst in new.tolist() for tup in lst]
+
+    recursive_ev(
+        idx=1,
+        curr_arr=curr_arr,
+        empty=new,
+        helper=helper
+    )
+
+def recursive_ev(idx, curr_arr, empty, helper):
+    global display
+
+    d = curr_arr[:pixel_size * pixel_size * col_colnum * idx - 1]
+    e = empty[pixel_size * pixel_size * col_colnum * idx - 1:]
+
+    if idx <= col_rownum:
+        helper.putdata(
+            curr_arr[:pixel_size * pixel_size * col_colnum * idx - 1] +
+            empty[pixel_size * pixel_size * col_colnum * idx - 1:]
+        )
+
+        display = ImageTk.PhotoImage(
+            helper
+        )
         displaybel.config(image=display)
 
-        displaybel.after(1, update_row, index + 1, curr_arr)
+        displaybel.after(3, recursive_ev, idx + 1, curr_arr, empty, helper)
 
 
 def image_from_arr(curr_arr):
@@ -50,6 +83,7 @@ pixel_size = 2
 col_colnum = 501
 col_rownum = 204
 
+
 root = Tk()
 root.title('wolfram cellular automata visualizer')
 root.config(bg=back_col)
@@ -57,9 +91,9 @@ root.geometry('1200x450')
 
 # default choices
 image_choices = {}
-
-for dots in range(1, 6):
-    image_arr = [[(65, 61, 74) for j in range(col_colnum)] for i in range(col_rownum)]
+empty = [[(65, 61, 74) for j in range(col_colnum)] for i in range(col_rownum)]
+for dots in range(1, 10):
+    image_arr = cp.deepcopy(empty)
 
     for dot in range(1, dots + 1):
         image_arr[0][int((dot * (col_colnum - 1)) / (dots + 1))] = (50, 168, 82)
@@ -75,7 +109,6 @@ button = Button(
     root,
     text='Show automata',
     command=lambda: update_row(
-        index=0,
         curr_arr=image_choices[choice.get()].copy()
     )
 )
