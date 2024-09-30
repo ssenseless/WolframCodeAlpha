@@ -1,5 +1,3 @@
-import copy
-
 import numpy as np
 import copy as cp
 
@@ -35,20 +33,17 @@ def update_row(curr_arr):
     recursive_ev(
         idx=1,
         curr_arr=curr_arr,
-        empty=new,
+        new=new,
         helper=helper
     )
 
-def recursive_ev(idx, curr_arr, empty, helper):
+def recursive_ev(idx, curr_arr, new, helper):
     global display
-
-    d = curr_arr[:pixel_size * pixel_size * col_colnum * idx - 1]
-    e = empty[pixel_size * pixel_size * col_colnum * idx - 1:]
 
     if idx <= col_rownum:
         helper.putdata(
             curr_arr[:pixel_size * pixel_size * col_colnum * idx - 1] +
-            empty[pixel_size * pixel_size * col_colnum * idx - 1:]
+            new[pixel_size * pixel_size * col_colnum * idx - 1:]
         )
 
         display = ImageTk.PhotoImage(
@@ -56,7 +51,7 @@ def recursive_ev(idx, curr_arr, empty, helper):
         )
         displaybel.config(image=display)
 
-        displaybel.after(3, recursive_ev, idx + 1, curr_arr, empty, helper)
+        displaybel.after(3, recursive_ev, idx + 1, curr_arr, new, helper)
 
 
 def image_from_arr(curr_arr):
